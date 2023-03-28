@@ -1,0 +1,142 @@
+from abc import ABC, abstractmethod
+
+
+"""import PySimpleGUI as sg
+
+
+def create_window(theme):
+    sg.set_options(font="Calibri 15", button_element_size=(1,1))
+    sg.theme(theme)
+    layer1 = [
+        sg.Button("Iniciar", key="INICIAR"), sg.Input("", key="SPINNER")
+    ],
+    layer2 = [
+        sg.Text("", key="OUTPUT")
+    ]
+    layout = [
+        layer1,
+        layer2
+        ]
+    return sg.Window("Probando", layout)
+
+theme_menu = ["menu", ["LightGrey1", "dark", "DarkGrey8", "random"]]
+window = create_window("LightGrey1")
+
+
+output = ""
+entrada2 = ""
+
+while True:
+    #Para cerrar la venta sin que de errores ni na
+    event, values = window.read()
+    if event == sg.WIN_CLOSED:
+        break
+    
+    #Primera parte para el funcionamiento principal
+    #Uso de operadores a traves de inputs y Spin
+    if event == "INICIAR":
+        output = ""
+        fib = 1
+        ant = 0
+        for x in range(int(values["SPINNER"])):
+            fib += ant
+            output += f"{str(fib)}, "
+            ant = fib
+            window["OUTPUT"].update(output)
+
+
+
+
+
+
+window.close()"""
+
+
+
+
+"""
+def generador_fibo():
+    a,b = 0, 1
+    while True:
+        yield a
+        a,b = b, a+b
+
+secuencia = generador_fibo()
+for i in range(10):
+    print(next(secuencia))
+
+lista = [1,2,3,4,5]
+
+lista_cuadrados = [numero**2 for numero in lista]
+print(lista_cuadrados)"""
+
+
+
+"""
+for x in range(19999):
+    print("\033c"+"Loading\n"+round(x/19999*170)*"#")
+    pass
+
+#@property
+def registro_llamadas(funcion):
+    def wrapper(*args, **kwargs):
+        resultado = funcion(*args, **kwargs)
+        print(f"Llamada {funcion.__name__} con argumentos {args} y {kwargs}, resultado {resultado}")
+        return resultado
+    return wrapper
+
+@registro_llamadas
+def sumar(a,b):
+    return a + b
+
+resultado_suma = sumar(3,4)
+"""
+
+
+"""
+class forma_geometrica(ABC):
+    @abstractmethod
+    def area(self):
+        pass
+    @abstractmethod
+    def perimetro(self):
+        pass
+
+class rectangulo(forma_geometrica):
+    def __init__(self, base, altura):
+        self.base = base
+        self.altura = altura
+    
+    def area(self):
+        return self.base * self.altura
+    
+    def perimetro(self):
+        return self.base * 2 + self.altura * 2
+
+class circulo(forma_geometrica):
+    def __init__(self, radio):
+        self.radio = radio
+    
+    def area(self):
+        return 3.14*self.radio**2
+    def perimetro(self):
+        return 2*3.14*self.radio
+
+r = rectangulo(5,10)
+print(r.area())
+print(r.perimetro())
+c = circulo(3)
+print(c.area())
+print(c.perimetro())"""
+
+
+
+
+
+
+
+def sumar(a,b,c,**kwargs):
+    d = kwargs.get("d", )
+    return a+b+c+d
+
+print(sumar(2,3,4,d=32))

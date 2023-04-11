@@ -92,6 +92,18 @@ def sumar(a,b):
 resultado_suma = sumar(3,4)
 """
 
+#Ejemplo usando el **kwargs
+"""
+def sumar(a,b,c,**kwargs):
+    d = kwargs.get("d", )
+    return a+b+c+d
+
+print(sumar(2,3,4,d=32))"""
+
+
+
+
+
 
 """
 class forma_geometrica(ABC):
@@ -127,7 +139,99 @@ print(r.area())
 print(r.perimetro())
 c = circulo(3)
 print(c.area())
-print(c.perimetro())"""
+print(c.perimetro())
+"""
+
+"""
+class RemoteControl(ABC):
+    @abstractmethod
+    def turn_on(self):
+        pass
+    @abstractmethod
+    def turn_off(self):
+        pass
+    @abstractmethod
+    def change_channel(self, channel):
+        pass
+
+class TV(RemoteControl):
+    def __init__(self):
+        self.is_on = False
+        self.channel = 0
+    
+    def turn_on(self):
+        self.is_on = True
+        print("TV is on")
+    def turn_off(self):
+        self.is_on = False
+        print("TV is off")
+    def change_channel(self, channel):
+        self.channel = channel
+        print(f"Cambiando al canal {self.channel}")
+
+class DVD(RemoteControl):
+    def __init__(self):
+        self.is_on = False
+        self.channel = 0
+    def turn_on(self):
+        self.is_on = True
+        print("TV is on")
+    def turn_off(self):
+        self.is_on = False
+        print("TV is off")
+    def change_channel(self, channel):
+        self.channel = channel
+        print(f"Cambiando al canal {self.channel}")
+
+class RemoteControlDevice:
+    def __init__(self, remote_control):
+        self.remote_control = remote_control
+    
+    def turn_on(self):
+        self.remote_control.turn_on()
+    def turn_off(self):
+        self.remote_control.turn_off()
+    def change_channel(self, channel):
+        self.remote_control.change_channel(channel)
+    
+
+tv = TV()
+dvd = DVD()
+
+tv_remote = RemoteControlDevice(tv)
+dvd_remote = RemoteControlDevice(dvd)
+
+tv_remote.turn_on()
+
+
+class Compressor(ABC):
+    @abstractmethod
+    def intentar(self):
+        pass
+
+class zipo(Compressor):
+    def empaquetar(self):
+        print("Comprimido en un zip")
+
+
+class rar(Compressor):
+    def empaquetar(self):
+        print("Comprimido en un rar")
+
+class FabricadorDeEmpaquetados:
+    def obtener_compressor(self, tipo_compressor):
+        if tipo_compressor == "zip":
+            return zipo()
+        elif tipo_compressor == "rar":
+            return rar
+        else:
+            return None
+        
+
+fabrica = FabricadorDeEmpaquetados()
+archivozip = fabrica.obtener_compressor("zip")
+archivozip.empaquetar()
+"""
 
 
 
@@ -135,8 +239,54 @@ print(c.perimetro())"""
 
 
 
-def sumar(a,b,c,**kwargs):
-    d = kwargs.get("d", )
-    return a+b+c+d
 
-print(sumar(2,3,4,d=32))
+
+#finale bosse CLASIFICADOR DE SECUENCIAS: ADN, ARN, PROTEINAS
+class secuencia(ABC):
+    @abstractmethod
+    def clasificar(self):
+        pass
+    @abstractmethod
+    def longitud(self):
+        pass
+    @abstractmethod
+    def contarBases(self):
+        pass
+    @abstractmethod
+    def contarAminoacidos(self):
+        pass
+
+class ADN(secuencia):
+    def __init__ (self, cadena):
+        self.cadena = cadena
+    
+    def clasificar(self):
+        return "Es una secuencia de ADN"
+    def longitud(self):
+        return len(self.cadena)
+    def contarBases(self):
+        bases = {"A":0, "T":0, "C":0, "G":0}
+        for base in self.cadena:
+            bases[base] += 1
+        return bases
+    def contarAminoacidos(self):
+        pass
+
+class ARN(secuencia):
+    def __init__(self,aminoacidos):
+        self.aminoacidos = aminoacidos
+    
+    def clasificar(self):
+        return "Es una secuencia de ARN"
+    def longitud(self):
+        return len(self.aminoacidos)
+    def contarBases(self):
+        pass
+    def contarAminoacidos(self):
+        aminoacidos = {"A":0, "R":0, "W":0}
+        for amino in self.aminoacidos:
+            aminoacidos[amino] += 1
+        return aminoacidos
+
+#Si quisiesemos añadir una tercera clase para las proteinas tendriamos que alterar nuestra clase abstracta con un contador de proteinas y añadir esta nueva función
+#A nuestras ya existentes clases de ADN y ARN con el termino "pass"

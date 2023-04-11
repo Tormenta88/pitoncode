@@ -299,7 +299,7 @@ class ARN(secuencia):
 
 import time
 import threading
-
+"""
 class coche:
     def rodar(self):
         print("Estoy rodando")
@@ -316,18 +316,55 @@ coche1 = coche()
 coche1.rodar()
 for x in range(3):
     coche1.girar()
+"""
 
 class rodar(threading.Thread):
     def __init__(self):
         super().__init__()
     def run(self):
-        for x in range(5):
+        bloqueo.acquire()
+        for _ in range(5):
             print(".")
             time.sleep(1)
+        bloqueo.release()
 
-class girar(threading.Thread):
+class girarr(threading.Thread):
     def __init__(self):
         super().__init__()
-    def turn(self):
-        for x in range(5):
+    def turnr(self):
+        bloqueo.acquire()
+        for _ in range(3):
             print("-->")
+            time.sleep(1)
+        bloqueo.release()
+
+
+class girarl(threading.Thread):
+    def __init__(self):
+        super().__init__()
+    def turnl(self):
+        bloqueo.acquire()
+        for _ in range(3):
+            print("<--")
+            time.sleep(1)
+        bloqueo.release()
+
+
+class coche:
+    def __init__(self):
+        self.rodar = rodar()
+        self.girarr = girarr()
+        self.girarl = girarl()
+        self.rodar2 = rodar()
+    def arrancar(self):
+        self.rodar.start()
+        self.girarr.start()
+        self.girarl.start()
+        self.rodar2.start()
+
+
+
+bloqueo = threading.Lock()
+coche1 = coche()
+coche1.arrancar()
+

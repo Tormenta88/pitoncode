@@ -242,6 +242,7 @@ archivozip.empaquetar()
 
 
 #finale bosse CLASIFICADOR DE SECUENCIAS: ADN, ARN, PROTEINAS
+"""
 class secuencia(ABC):
     @abstractmethod
     def clasificar(self):
@@ -287,6 +288,46 @@ class ARN(secuencia):
         for amino in self.aminoacidos:
             aminoacidos[amino] += 1
         return aminoacidos
-
+"""
 #Si quisiesemos añadir una tercera clase para las proteinas tendriamos que alterar nuestra clase abstracta con un contador de proteinas y añadir esta nueva función
 #A nuestras ya existentes clases de ADN y ARN con el termino "pass"
+
+
+
+
+#Programación concurrente
+
+import time
+import threading
+
+class coche:
+    def rodar(self):
+        print("Estoy rodando")
+        for x in range(10):
+            print(".")
+            time.sleep(1)
+    def girar(self):
+        print("Giramos a la derecha 1 seg")
+        print("--->")
+        time.sleep(1)
+
+coche1 = coche()
+
+coche1.rodar()
+for x in range(3):
+    coche1.girar()
+
+class rodar(threading.Thread):
+    def __init__(self):
+        super().__init__()
+    def run(self):
+        for x in range(5):
+            print(".")
+            time.sleep(1)
+
+class girar(threading.Thread):
+    def __init__(self):
+        super().__init__()
+    def turn(self):
+        for x in range(5):
+            print("-->")

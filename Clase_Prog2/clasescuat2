@@ -317,7 +317,7 @@ coche1.rodar()
 for x in range(3):
     coche1.girar()
 """
-
+"""
 class rodar(threading.Thread):
     def __init__(self):
         super().__init__()
@@ -367,4 +367,254 @@ class coche:
 bloqueo = threading.Lock()
 coche1 = coche()
 coche1.arrancar()
+
+"""
+
+
+
+
+
+
+
+"""
+
+import threading
+
+class TicketSeller:
+    def __init__(self, available_tickets):
+        self.avalible_tickets = available_tickets
+        self.lock = threading.Lock()
+
+    def buy_tickets(self, tickets_to_buy):
+        self.lock.acquire()
+        if self.avalible_tickets >= tickets_to_buy:
+            print(f"Existe la venta de {tickets_to_buy} entradas completada.")
+            self.avalible_tickets -= tickets_to_buy
+        else: 
+            print(f"No hay suficientes entradas disponibles para comprar {tickets_to_buy} entradas.")
+        self.lock.release()
+
+
+
+
+
+if __name__ == "__main__":
+    ticket_seller = TicketSeller(7)
+
+    threads = []
+
+    for i in range(5):
+        thread = threading.Thread(target=ticket_seller.buy_tickets, args=(2,))
+        threads.append(thread)
+        thread.start()
+
+    for x in threads:
+        x.join()
+"""
+
+
+"""
+
+import threading
+import time
+
+
+class ThreadA(threading.Thread):
+    def run(self):
+        print("El hilo A esta siendo utilizado")
+        print("A - a la espera del bloqueo 1")
+        bloqueo1.acquire()
+        print("A - Bloqueo 1 adquirido")
+        time.sleep(2)
+        print("A - a la espera de bloqueo 2")
+        bloqueo2.acquire()
+        print("A - Thread A")
+        bloqueo2.release()
+        bloqueo1.release()
+
+
+class ThreadB(threading.Thread):
+    def run(self):
+        print("El hilo B esta siendo utilizado")
+        print("B - a la espera del bloqueo 2")
+        bloqueo2.acquire()
+        print("B - Bloqueo 2 adquirido")
+        time.sleep(2)
+        print("B - a la espera de bloqueo 1")
+        bloqueo1.acquire()
+        print("B - Thread A")
+        bloqueo1.release()
+        bloqueo2.release()
+        
+
+bloqueo1 = threading.Lock()
+bloqueo2 = threading.Lock()
+
+
+A = ThreadA()
+B = ThreadB()
+
+A.start()
+B.start()
+
+"""
+
+
+
+
+
+
+
+"""
+import threading
+
+
+def worker(barrier):
+    print("worker starter")
+
+    barrier.wait()
+
+    print("Barrier crossed")
+
+
+ 
+if __name__ == "__main__":
+    num_threads = 4
+
+    barrier = threading.Barrier(num_threads)
+    threads = [threading.Thread (target=worker, args=(barrier,)) for i in range(num_threads)]
+    for x in threads:
+        x.start()
+
+    for x in threads:
+        x.join()
+"""
+
+
+"""
+import threading
+
+def etapa_uno(barrier):
+    print("Inicio de la etapa 1")
+    print("Fin de la etapa 1")
+    barrier.wait()
+    print("Todos los hilos completaron la etapa 1")
+
+
+def etapa_dos(barrier):
+    print("Inicio de la etapa 2")
+    print("Fin de la etapa 2")
+    barrier.wait()
+    print("Todos los hilos completaron la etapa 2")
+    
+
+def etapa_tres(barrier):
+    print("Inicio de la etapa 3")
+    print("Fin de la etapa 3")
+    barrier.wait()
+    print("Todos los hilos completaron la etapa 3")
+    
+
+
+if __name__ == "__main__":
+
+    num_threads = 3
+
+    barrier = threading.Barrier(num_threads)
+
+    threads = [threading.Thread(target=etapa_uno, args = (barrier,)),
+               threading.Thread(target=etapa_dos, args = (barrier,)),
+               threading.Thread(target=etapa_tres, args = (barrier,))]
+    
+    for x in threads:
+        x.start()
+
+    for x in threads:
+        x.join()
+
+"""
+"""
+import threading
+from time import sleep
+
+
+bloqueo = threading.Lock()
+
+class etapa:
+    def __init__(self, nombre_etapa, tiempo_espera):
+        self.nombre_etapa = nombre_etapa
+        self.tiempo_espera = tiempo_espera
+    
+    def cruzar_calle(self):
+        sleep(self.tiempo_espera)
+        print(f"Alumnos cruzando la avenida {self.nombre_etapa}")
+
+    def correr_etapa(self):
+        bloqueo.acquire()
+        print(f"Inicio de la etapa {self.nombre_etapa}")
+        for x in range(3):
+            self.cruzar_calle()
+        print(f"Todos los alumnos cruzaron la avenida {self.nombre_etapa}")
+        bloqueo.release()
+
+        print(f"Fin de la etapa {self.nombre_etapa}")
+    
+
+
+
+#instanciamos un par de veces o algo por el estilo
+
+
+etapa1 = etapa("1", 0.5)
+etapa2 = etapa("2", 1)
+etapa3 = etapa("1", 1.5)
+
+
+
+etapas = [etapa1, etapa2, etapa3]
+threads = []
+
+for x in etapas:
+    t = threading.Thread(target=x.correr_etapa)
+    threads.append(t)
+
+for x in threads:
+    x.start()
+
+
+for x in threads:
+    x.join()
+
+
+"""
+
+
+
+
+
+
+import threading
+
+semaphore = threading.Semaphore(2)
+
+
+def seccion_critica():
+    semaphore.acquire()
+    print("Entrando dentro de la sección crítica. . . . .")
+
+    for x in range(5):
+        print("Tarea dentro de la sección crítica. . . . . .")
+    
+    print("Saliendo de la sección crítica. . . . . .")
+    semaphore.release()
+
+t1 = threading.Thread(target=seccion_critica)
+t2 = threading.Thread(target=seccion_critica)
+t3 = threading.Thread(target=seccion_critica)
+ts = [t1, t2, t3]
+for x in ts:
+    x.start()
+
+for x in ts:
+    x.join()
 

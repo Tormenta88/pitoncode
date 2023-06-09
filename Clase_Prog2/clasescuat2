@@ -589,7 +589,7 @@ for x in threads:
 """
 
 
-
+"""
 
 
 
@@ -618,3 +618,408 @@ for x in ts:
 for x in ts:
     x.join()
 
+"""
+
+
+
+
+
+
+"""
+import multiprocessing
+def funcion_proceso(parametros):
+    pass
+
+proceso = multiprocessing.Process(target=funcion_proceso, args=(parametros,))
+
+
+proceso.start
+"""
+
+"""
+import multiprocessing
+import os
+def info(title):
+    print(title)
+    print("module name:", __name__)
+    print("parent process:", os.getppid())
+    print("process id:", os.getpid())
+def f(name):
+    info("function f")
+    print("hello", name)
+
+if __name__ == "__main__":
+    info("main line")
+    p = multiprocessing.Process(target=f, args=("bob",))
+
+    p.start()
+    p.join()
+"""
+
+"""
+import multiprocessing
+import time
+def contar_hasta(n):
+    for x in range(n):
+        print(x)
+
+
+if __name__ == "__main__":
+    proceso1 = multiprocessing.Process(target=contar_hasta, args=(1,))
+    proceso2 = multiprocessing.Process(target=contar_hasta, args=(2,))
+    proceso3 = multiprocessing.Process(target=contar_hasta, args=(7,))
+    proceso1.start()
+    time.sleep(1)
+    proceso2.start()
+    time.sleep(1)
+    proceso3.start()
+    time.sleep(1)
+    proceso1.join()
+    proceso2.join()
+    proceso3.join()
+
+    print("Terminé")
+
+"""
+"""
+import multiprocessing
+
+def f(name):
+    print("Hola mi nombre es:", name)
+
+if __name__ == "__main__":
+    luci = multiprocessing.Process(target=f, args=("luci",))
+    sarah = multiprocessing.Process(target=f, args=("sarah",))
+    vatalia = multiprocessing.Process(target=f, args=("vatalia",))
+    miguel = multiprocessing.Process(target=f, args=("miguel",))
+    Gepeto = multiprocessing.Process(target=f, args=("gepeto",))
+    
+    luci.start()
+    sarah.start()
+    vatalia.start()
+    miguel.start()
+    Gepeto.start()
+    luci.join()
+    sarah.join()
+    vatalia.join()
+    miguel.join()
+    Gepeto.join()
+    print("Y soy el ultimo")
+
+"""
+
+"""
+from multiprocessing import Process, Queue
+
+def f(q):
+    q.put([42,None, "hello"])
+
+if __name__ == "__main__":
+    q = Queue()
+    p = Process(target=f, args=(q,))
+    p.start()
+    print(q.get())
+    p.join()
+
+"""
+
+
+
+
+"""
+from multiprocessing import Process, Queue
+from time import sleep
+from random import random
+
+def productor(queue):
+    print("Producer running",flush=True)
+    for x in range(10):
+        value = random()
+        sleep(value)
+        queue.put(value)
+    queue.put(None)
+    print("Producer exit", flush=True)
+
+def consumer(queue):
+    print("Consumer running",flush=True)
+    while True:
+        item = queue.get()
+        if item is None:
+            break
+        print(f"Got item {item}", flush=True)
+    print("Consumer: Done", flush=True)
+
+if __name__ == "__main__":
+    queue = Queue()
+    consumer_process = Process(target=consumer, args=(queue,))
+    consumer_process.start()
+
+    producer_process = Process(target=productor, args=(queue,))
+    producer_process.start()
+
+    consumer_process.join()
+    producer_process.join()"""
+
+
+
+
+"""
+from multiprocessing import Process, Pipe
+def f(conn): #Proceso Hijo
+    conn.send([42,None, "hello"])
+    conn.close()
+
+if __name__ == "__main__":
+    parent_conn, child_conn = Pipe()
+    p = Process(target=f, args=(child_conn,))
+    p.start()
+    print(parent_conn.recv())
+    p.join()
+"""
+
+
+"""
+from multiprocessing import Process, Lock
+from multiprocessing.sharedctypes import Value, Array
+from ctypes import Structure, c_double
+
+class Point(Structure):
+    _fields_ = [("x", c_double), ("y", c_double)]
+
+def modify(n,x,s,A):
+    n.value**=2
+    x.value**=2
+    s.value=s.value.upper()
+    for a in A:
+        a.x**=2
+        a.y**=2
+
+if __name__ == "__main__":
+    lock = Lock()
+
+    n = Value("i", 7, lock=lock)
+    x = Value(c_double, 1.0/3.0, lock=lock)
+    s = Array("c", b"hello world", lock=lock)
+    A = Array(Point, [(1.875,-6.25),(-5.75,2.0),(2.375,9.5)], lock=lock)
+
+    p = Process(target=modify, args=(n,x,s,A))
+    p.start()
+    p.join()
+
+
+    print(n.value)
+    print(x.value)
+    print(list(s))
+    print(list(A))
+"""
+
+
+#Rallas
+"""
+
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(14,5))
+ax.plot([1,2,3,4,5,6,7,8,9,10],[1,4,2,3,5,4,3,1,1,0], label="Data1",color="pink", marker=".", linestyle = "dashed", markersize=10, linewidth=3)
+ax.plot([1,2,3,4,5,6,7,8,9,10], [2,4,5,2,3,6,7,7,3,3],label="Data2", color="blue", marker=".", linestyle = "solid", markersize=9, linewidth=2)
+ax.set_xlabel("Eje X")
+ax.set_ylabel("Eje Y")
+ax.set_title("Simple Lineplot: Dashed")
+ax.legend()
+plt.show()
+
+"""
+
+
+#Barras
+"""
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(14,5))
+ax.bar([1,2,3,4,5,6,7,8,9,10],[1,4,2,3,5,4,3,1,1,0], color="green")
+ax.set_xlabel("Eje X")
+ax.set_ylabel("Eje Y")
+ax.set_title("Simple Lineplot: Dashed")
+plt.show()
+"""
+
+
+
+#Barras y rallas
+"""
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(14,5))
+ax.bar([1,2,3,4,5,6,7,8,9,10],[1,4,2,3,5,4,3,1,1,0], color="green")
+ax.plot([1,2,3,4,5,6,7,8,9,10],[1,4,2,3,5,4,3,1,1,0], label="Data1",color="pink", marker=".", linestyle = "dashed", markersize=10, linewidth=3)
+ax.set_xlabel("Eje X")
+ax.set_ylabel("Eje Y")
+ax.set_title("Simple Lineplot: Dashed")
+plt.show()
+"""
+
+
+
+#Puntos
+"""
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(14,5))
+ax.scatter([1,2,3,4,5,6,7,8,9,10],[1,4,2,3,5,4,3,1,1,0], color="red", linestyle = "solid", linewidth=2)
+ax.scatter([1,2,3,4,5,6,7,8,9,10], [2,4,5,2,3,6,7,7,3,3], color="blue", linestyle = "solid", linewidth=2)
+ax.set_xlabel("Eje X")
+ax.set_ylabel("Eje Y")
+ax.set_title("Simple Lineplot: Dashed")
+plt.show()
+"""
+
+
+
+#BioPython
+"""from Bio import SeqIO
+from Bio.pairwise2 import align, format_alignment
+
+sequences = []
+for x in SeqIO.parse("/Users/tormenta88/Downloads/adn.fasta.txt", "fasta"):
+    sequences.append(str(x.seq))
+
+aligments = align.globalxx(sequences[0], sequences[1])
+
+for x in aligments:
+    print(format_alignment(*x))
+
+"""
+"""
+#Alineamientos Multiples
+
+from Bio import SeqIO
+from Bio.SeqRecord import SeqRecord
+from Bio.Align import MultipleSeqAlignment, AlignInfo
+
+records = list(SeqIO.parse("/Users/tormenta88/Downloads/ADN-MSA.fasta.txt", "fasta"))
+
+sequences = [str(x.seq) for x in records]
+
+seq_records = [SeqRecord(seq, id=x.id)for seq, x in zip(sequences, records)]
+
+alignment = MultipleSeqAlignment(seq_records)
+
+summary_align = AlignInfo.SummaryInfo(alignment)
+consensus = summary_align.dumb_consensus()
+
+print(alignment)
+print("Consenso:", consensus)
+"""
+
+
+
+"""
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.transforms as transforms
+
+
+data = pd.read_csv("/Users/tormenta88/Downloads/CSV3 (1).csv", delimiter=";")
+
+data["foldChange"] = data["foldChange"].str.replace(",", ".").astype(float)
+data["log2FoldChange"] = data["log2FoldChange"].str.replace(",", ".").astype(float)
+data["pval"] = data["pval"].str.replace(",", ".").astype(float)
+data["padj"] = data["padj"].str.replace(",", ".").astype(float)
+
+miRNA = data["miRNA"]
+FoldChange = data["foldChange"]
+Log2FoldChange = data["log2FoldChange"]
+Pval = data["pval"]
+Padj = data["padj"]
+
+
+fig, ax = plt.subplots()
+
+
+ax.plot(miRNA, FoldChange, label="foldChange")
+
+ax.plot(miRNA, Log2FoldChange, label="log2FoldChange")
+
+ax.plot(miRNA, Pval, label = "pval")
+
+ax.plot(miRNA, Padj, label = "padj")
+
+ax.set_xlabel("miRNA")
+ax.set_ylabel("Valor")
+ax.set_title("Graficos")
+
+ax.legend()
+
+offset = -60
+ax.tick_params(axis='x', which='both', bottom=True, top=False)
+plt.xticks(ticks=plt.xticks()[0], ha='left')
+xtick_labels = ax.get_xticklabels()
+for label in xtick_labels:
+    label.set_transform(label.get_transform() + transforms.ScaledTranslation(offset / 72, 0, fig.dpi_scale_trans))
+plt.xticks(rotation = 45)
+
+plt.show()
+"""
+
+
+
+
+"""
+class prueba():
+    def __init__(self, x=0, y=0):
+        self.x = x
+        self.y = y
+    
+    def __str__(self):
+        return("({},{})".format(self.x, self.y))
+
+    def __add__(self, otro):
+        return prueba(self.x + otro.x, self.y + otro.y)
+    
+    def __sub__(self, other):
+        return prueba(self.x - other.x, self.y - other.y)
+    
+
+p1 = prueba(1,2)
+p2 = prueba(4,2)
+
+print(p1 + p2)
+print(p1)
+
+"""
+
+
+
+
+#Generadores
+def siguiente():
+    a = 0
+    while True:
+        yield a
+        a+=1
+
+ahora = siguiente()
+lista = []
+for x in range(10):
+    lista.append(next(ahora))
+
+#Comprensiones
+lista = [x ** 2 for x in lista]
+print(lista)
+
+
+
+#Decoradores
+def ciertamente(variable):
+    def wrap(*argumentos):
+        resultado = variable(*argumentos)
+        print("mismuertos", argumentos, resultado)
+        return resultado
+    return wrap
+
+@ciertamente
+def sumar(a, b):
+    return a+b
+
+algo = sumar(3,4)

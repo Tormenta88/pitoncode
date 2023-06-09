@@ -1,0 +1,36 @@
+
+import gzip
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Path to the "train-images-idx3-ubyte.gz" file
+file_path = "/Users/tormenta88/Downloads/train-images-idx3-ubyte.gz"
+
+# Open the gzip file
+with gzip.open(file_path, 'rb') as f:
+    # Read the file header
+    magic_number = int.from_bytes(f.read(4), 'big')
+    num_images = int.from_bytes(f.read(4), 'big')
+    num_rows = int.from_bytes(f.read(4), 'big')
+    num_columns = int.from_bytes(f.read(4), 'big')
+
+    # Read the image data
+    image_data = f.read()
+
+# Convert the image data to a NumPy array
+images = np.frombuffer(image_data, dtype=np.uint8)
+images = images.reshape(num_images, num_rows, num_columns)
+
+# Display the images
+a = 100
+b = 100
+
+fig, axes = plt.subplots(a, b, figsize=(a, b))
+axes = axes.flatten()
+
+for i, ax in enumerate(axes):
+    ax.imshow(images[i], cmap='gray')
+    ax.axis('off')
+
+plt.tight_layout()
+plt.show()

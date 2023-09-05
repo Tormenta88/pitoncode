@@ -758,9 +758,9 @@ if __name__ == "__main__":
     producer_process.start()
 
     consumer_process.join()
-    producer_process.join()"""
+    producer_process.join()
 
-
+"""
 
 
 """
@@ -774,7 +774,7 @@ if __name__ == "__main__":
     p = Process(target=f, args=(child_conn,))
     p.start()
     print(parent_conn.recv())
-    p.join()
+    #p.join()
 """
 
 
@@ -991,7 +991,7 @@ print(p1)
 
 
 
-
+"""
 #Generadores
 def siguiente():
     a = 0
@@ -1022,4 +1022,17 @@ def ciertamente(variable):
 def sumar(a, b):
     return a+b
 
-algo = sumar(3,4)
+algo = sumar(3,4)"""
+
+
+
+class prueba:
+    def __init__(self,algo):
+        self.algo = algo
+
+    def __str__(self):
+        return "ciertamente"
+
+ciertamente = prueba("ciertamente")
+
+print(ciertamente)

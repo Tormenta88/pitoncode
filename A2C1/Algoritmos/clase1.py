@@ -5,6 +5,7 @@ class Nodo:
         self.dato = dato
         self.siguiente = None
 
+
 class ListaSimplementeEnlazada:
     def __init__(self):
         self.cabeza = None
@@ -39,6 +40,53 @@ class ListaSimplementeEnlazada:
             return
         previo.siguiente = nodo_actual.siguiente
         nodo_actual = None
+
+    def buscar(self, dato):
+        nodo_actual = self.cabeza
+        while nodo_actual:
+            if nodo_actual.dato == dato:
+                return nodo_actual
+            nodo_actual = nodo_actual.siguiente
+        return False
+    
+    def actualizar(self, posicion, nuevo_dato):
+        nodo_actual = self.cabeza
+        indice = 0
+        while nodo_actual: 
+            if indice == posicion:
+                nodo_actual = nuevo_dato
+
+            nodo_actual = nodo_actual.siguiente
+            indice += 1
+    
+    #Devuelve una lista python con todos los datos
+    def recorrer(self):
+        todos_los_datos = []
+        nodo_actual = self.cabeza
+        while nodo_actual:
+            todos_los_datos.append(nodo_actual.dato)
+            nodo_actual = nodo_actual.siguiente
+        return todos_los_datos
+    
+    #Uso del algoritmo de la burbuja
+    def ordenar(self):
+        if self.cabeza == None:
+            return
+        nodo_actual = self.cabeza
+
+        while nodo_actual:
+            nodo_siguiente = nodo_actual.siguiente
+            while nodo_siguiente:
+                if nodo_siguiente.dato < nodo_actual.dato:
+                    auxiliar = nodo_siguiente.dato
+                    nodo_siguiente.dato = nodo_actual.dato
+                    nodo_actual.dato = auxiliar
+                    #Bien
+                    nodo_actual.dato, nodo_siguiente.dato = nodo_siguiente.dato, nodo_actual.dato
+
+                    nodo_siguiente = nodo_siguiente.siguiente
+                nodo_actual = nodo_actual.siguiente
+
 
     def estaVacia(self):
         if self.cabeza == None:

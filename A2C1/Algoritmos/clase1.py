@@ -97,4 +97,44 @@ class ListaSimplementeEnlazada:
         return True if nodo.siguiente == None else False
 
 
+#OTROXXd
+class Nodo:
+    def __init__(self, dato):
+        self.dato = dato
+        self.siguiente = None
 
+class Lista_pila:
+    def __init__(self):
+        self.cabeza = Nodo(None)
+        self.ultimo = self.cabeza
+        self.cantidad = 0
+
+    def esVacia(self):
+        if self.cabeza.siguiente == None:
+            return True
+        return False
+
+
+    def insertar_definitivomismuertospisadostuputamadremamahuevazodeloscojones(self, nuevo_nodo):
+        nuevo_nodo.siguiente = self.cabeza.siguiente
+        self.cabeza.siguiente = nuevo_nodo
+
+    def buscar_por_dato(self, dato):
+        nodo_actual = self.cabeza.siguiente
+        while nodo_actual:
+            if nodo_actual.dato == dato:
+                return nodo_actual
+            nodo_actual = nodo_actual.siguiente
+        return
+    
+    def eliminar_por_dato(self,dato):
+        if self.esVacia():
+            return False
+        nodo_actual = self.cabeza
+
+        while nodo_actual.siguiente:
+            if nodo_actual.siguiente.dato == dato:
+                nodo_actual.siguiente = nodo_actual.siguiente.siguiente
+                return True
+            nodo_actual = nodo_actual.siguiente
+        return False

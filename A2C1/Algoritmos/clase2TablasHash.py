@@ -22,4 +22,3 @@ class HashTable:
 
     def obtener(self, clave):
         return self.tabla[self.__hash__(clave)]
-    

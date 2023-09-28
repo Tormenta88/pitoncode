@@ -18,3 +18,17 @@ class HashTable:
 
     def obtener(self, clave):
         return self.tabla[self.__hash__(clave)]
+    
+    def insertar(self, clave, valor):
+        index = self.funcionHASH(clave)
+
+        for aloja in self.tabla[index]:
+            if aloja[0] != None:
+                if aloja[0] == clave:
+                    aloja[1] = valor
+                    return
+            else:
+                aloja[0]= clave
+                aloja[1] = valor
+                self.cantidad +=1
+        #self.tabla[index].append([clave,valor])

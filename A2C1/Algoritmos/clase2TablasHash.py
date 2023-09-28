@@ -32,3 +32,5 @@ class HashTable:
                 aloja[1] = valor
                 self.cantidad +=1
         #self.tabla[index].append([clave,valor])
+
+

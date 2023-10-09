@@ -17,7 +17,7 @@ class Hotel:
         self.agregar_cliente(cliente)
 
     
-    def agregar_cliente(self, cliente)
+    def agregar_cliente(self, cliente):
         self.clientes.append(cliente)
 
 
@@ -26,7 +26,7 @@ class Hotel:
         self.agregar_habitacion(habitacion)
 
     
-    def agregar_habitacion(self, habitacion)
+    def agregar_habitacion(self, habitacion):
         self.__habitaciones.append(habitacion)
 
     def reservar_habitacion(self, num_habitacion, dni_cliente, f_ini, f_fin):

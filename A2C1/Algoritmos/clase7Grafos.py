@@ -38,7 +38,7 @@ def dfs(grafo, inicio, visitados=None)
 
     visitados.add(inicio)
 
-    for vecino in grafo(inicio):
+    for vecino in grafo(grafo, inicio):
         if vecino not in visitados:
             dfs(grafo,vecino,visitados)
     return visitados

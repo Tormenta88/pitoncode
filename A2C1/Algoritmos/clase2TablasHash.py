@@ -34,3 +34,8 @@ class HashTable:
         #self.tabla[index].append([clave,valor])
 
 
+prueba = HashTable()
+
+prueba.insertar("aver" ,"ciertamente")
+
+prueba.obtener("aver")

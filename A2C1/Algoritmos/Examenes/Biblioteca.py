@@ -1,14 +1,15 @@
 from mhash import HasTable
 class Libro:
-    def __init__(self, nombre,autor,genero,editorial="default",ISBN="default"):
+    def __init__(self, nombre,autor,genero, cantidad="digital",editorial="default",ISBN="default"):
         self.nombre = nombre
         self.autor = autor
         self.genero = genero
+        self.cantidad = cantidad
         self.editorial = editorial
         self.id = ISBN
     @property
     def info(self):
-        print(f"Nombre: {self.nombre}\nAutor: {self.autor}\nGenero: {self.genero}")
+        print(f"Nombre: {self.nombre}\nAutor: {self.autor}\nGenero: {self.genero}\nDisponibilidad: {self.cantidad}")
         if self.editorial != "default":
             print(f"Editorial: {self.editorial}")
         if self.id != "default":
@@ -31,7 +32,13 @@ class Data_Base:
 pass
 
 #3. Diseñar un sistema de cola de espera para los libros que están actualmente prestados. (Cola)
-
+class Prestar():
+    def __init__(self):
+        pass
+    def prestar(self, libro, tiempo):
+        pass
+    def devolver(self, libro):
+        pass
 
 
 

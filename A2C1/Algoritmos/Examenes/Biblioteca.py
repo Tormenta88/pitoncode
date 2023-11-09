@@ -1,7 +1,7 @@
 from mhash import HasTable
-from Cola import Cola
+from Cola import ListaCola
 class Libro:
-    def __init__(self, nombre,autor,genero, cantidad="digital",editorial="default",ISBN="default"):
+    def __init__(self, nombre,autor,genero, cantidad=0,editorial="default",ISBN="default"):
         self.nombre = nombre
         self.autor = autor
         self.genero = genero
@@ -10,7 +10,7 @@ class Libro:
         self.id = ISBN
     @property
     def info(self):
-        print(f"Nombre: {self.nombre}\nAutor: {self.autor}\nGenero: {self.genero}\nDisponibilidad: {self.cantidad}")
+        print(f"Nombre: {self.nombre}\nAutor: {self.autor}\nGenero: {self.genero}\nDisponibilidad: {'Digital' if self.cantidad < 1 else self.cantidad}")
         if self.editorial != "default":
             print(f"Editorial: {self.editorial}")
         if self.id != "default":
@@ -34,12 +34,28 @@ pass
 
 #3. Diseñar un sistema de cola de espera para los libros que están actualmente prestados. (Cola)
 class Prestar():
-    def __init__(self):
-        cola = 
-    def prestar(self, libro, tiempo):
-        pass
-    def devolver(self, libro):
-        pass
+    def __init__(self, db):
+        self.db = db
+        self.cola = ListaCola()
+    
+    def prestar(self, nombre_libro, tiempo):
+        #Primero miramos si tenemos de ese libro para poder prestarlo:
+        if self.db.buscar_libro(nombre_libro).cantidad > 0:
+            self.cola.insertar([nombre_libro, int(tiempo)])
+            print(f"Libro {nombre_libro} prestado durante {tiempo} dias.")
+        else:
+            print(f"No quedan existencias del libro: {nombre_libro}")
+    
+    def buscar_prestamo(self, libro):
+        print(f"El libro {self.cola.buscar(libro)}"
+    
+    def devolver(self, libro, duracion):
+        self.cola.eliminar(libro)
+        if duracion
+        print(f"Libro {libro} devuelto con exito con exito")
+    
+    def prestados(self):
+        return self.cola.recorrer()
 
 
 

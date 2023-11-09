@@ -3,7 +3,7 @@ class Nodo:
         self.dato = dato
         self.siguiente = None
 
-class Cola:
+class ListaCola:
     def __init__(self):
         self.cabeza = None
         self.ultimo = None

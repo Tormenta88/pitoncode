@@ -62,11 +62,11 @@ class Prestar():
     def buscar_prestamo(self, libro):
         #Filtramos para ver si el libro existe dentro de nuestra cola de prestados
         if self.cola.buscar(libro):
-            print(f"El libro {libro} si ha sido prestado y quedan: {self.db.buscar_libro(libro).cantidad}")
+            print(f"El libro {libro} si ha sido prestado")
         else:
             #Si no esta entre los prestados miramos si el libro existe en la base de datos
             if self.db.buscar_libro(libro):
-                print(f"El libro {libro} no ha sido prestado y quedan: {self.db.buscar_libro(libro).cantidad}")
+                print(f"El libro {libro} no ha sido prestado")
             else:
                 print("El libro no figura en la base de datos")
     
@@ -81,23 +81,3 @@ class Prestar():
         #Mostramos todos los libros que hemos prestado
         print(self.cola.recorrer())
 
-
-
-
-
-
-
-
-
-primero = Libro("Hora", "De", "Aventuras", 1)
-
-base = Data_Base()
-base.añadir_libro(primero)
-print(base.buscar_libro("Hora"))
-base.info_libro("Hora")
-
-presto = Prestar(base)
-presto.prestar("Hora")
-presto.buscar_prestamo("ora")
-presto.prestados()
-presto.devolver("Hora", 365)

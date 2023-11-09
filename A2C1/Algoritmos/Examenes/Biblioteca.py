@@ -1,4 +1,5 @@
 from mhash import HasTable
+from Cola import Cola
 class Libro:
     def __init__(self, nombre,autor,genero, cantidad="digital",editorial="default",ISBN="default"):
         self.nombre = nombre
@@ -34,7 +35,7 @@ pass
 #3. Diseñar un sistema de cola de espera para los libros que están actualmente prestados. (Cola)
 class Prestar():
     def __init__(self):
-        pass
+        cola = 
     def prestar(self, libro, tiempo):
         pass
     def devolver(self, libro):

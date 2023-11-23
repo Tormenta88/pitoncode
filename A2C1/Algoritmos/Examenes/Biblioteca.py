@@ -17,6 +17,8 @@ class Libro:
             print(f"Editorial: {self.editorial}")
         if self.id != "default":
             print(f"ISBN: {self.id}")
+
+
 #1. Organizar los libros de tal manera que se puedan encontrar rápidamente según el título. (Tabla hash)
 class Data_Base:
     #Creamos nuestra hash table con una capacidad default de 100 libros

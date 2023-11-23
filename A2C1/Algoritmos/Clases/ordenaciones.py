@@ -39,7 +39,17 @@ def busqueda_binaria(lista, elemento):
     return -1
 
 def burbujacorta(lista: list) -> None:
-    
+    n = len(lista)
+    for i in range(n):
+        interchange = False
+        for j in range(0, n-i-1):
+            if lista[j] > lista[j+1]:
+                inter(lista, j, j+1)
+                interchange = True
+
+
+        if not interchange:
+            break
 
 
 

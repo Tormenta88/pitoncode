@@ -51,8 +51,21 @@ def burbujacorta(lista: list) -> None:
         if not interchange:
             break
 
+#! Cae en el examen
+#? Cae en el examen
+#TODO Cae en el examen
+def quicksort(lista: list):
+    izquierda = 0
+    derecha = len[lista] - 1
+    pivote = lista[derecha]
+    indice = izquierda
+    for i in range(izquierda, derecha):
+        if lista[i] <= pivote:
+            lista[indice], lista[i] = lista[i], lista[indice]
+            indice += 1
 
-
+    lista[indice], lista[derecha] = lista[derecha], lista[indice]
+    return indice
 
 
 listilla = [2,3,1,4,3567,321,6,8,3,12]
